@@ -43,9 +43,16 @@ public class GoogleTranslate {
         WebTarget webTarget = client.target(address);
         Response response = webTarget.request().post(Entity.form(form));
 
-        TranslateResponse result = response.readEntity(TranslateResponse.class);
-        response.close();
+        if (response.getStatus() == 200) {
+            TranslateResponse result = response.readEntity(TranslateResponse.class);
+            response.close();
 
-        return result.getData().getTranslations().get(0).getTranslatedText();
+            return result.getData().getTranslations().get(0).getTranslatedText();
+        } else {
+            ErrorResponse result = response.readEntity(ErrorResponse.class);
+            response.close();
+
+            throw new RuntimeException(result.getError().getMessage());
+        }
     }
 }

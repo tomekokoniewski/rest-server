@@ -39,7 +39,7 @@ public class GoogleTranslateTest {
         expectedException.expect(RuntimeException.class);
         expectedException.expectMessage("The request is missing a valid API key.");
 
-        googleTranslate = new GoogleTranslate("123123123");
+        googleTranslate = new GoogleTranslate("");
 
         final String input = "Hi, how are you?";
         final String source = "en";
