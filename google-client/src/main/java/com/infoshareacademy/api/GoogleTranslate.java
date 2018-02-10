@@ -16,7 +16,15 @@ public class GoogleTranslate {
     }
 
     public String generateUrl(String address, Map<String, String> params) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        sb.append(address).append("?");
+
+        params.forEach((key, value) -> {
+                sb.append(key).append("=").append(value);
+                sb.append("&");
+        });
+
+        return sb.toString();
     }
 
     public String translate(String input, String source, String target) {

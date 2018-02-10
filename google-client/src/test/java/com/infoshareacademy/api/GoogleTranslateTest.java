@@ -36,7 +36,7 @@ public class GoogleTranslateTest {
         params.put("param1", "1");
         params.put("param2", "abc");
 
-        String expectedUrl = "http://localhost/?param1=1&param2=abc";
+        String expectedUrl = "http://localhost/?param1=1&param2=abc&";
 
         String url = googleTranslate.generateUrl(address, params);
         assertThat(url, is(expectedUrl));
