@@ -3,14 +3,14 @@ package model;
 import java.util.List;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class RestResponse {
+public class MultipleRestResponse {
 
     private List<String> messages;
 
     @JsonProperty("result")
     private List<StateDetails> data;
 
-    public RestResponse() {
+    public MultipleRestResponse() {
     }
 
     public List<String> getMessages() {
