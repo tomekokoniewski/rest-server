@@ -10,6 +10,10 @@ public class StatesService {
 
     public static final String ADDRESS = "http://services.groupkt.com/state/get/USA/all";
 
+    public StateDetails getState(String code) {
+        return null;
+    }
+
     public List<StateDetails> getAllStates() {
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(ADDRESS);
