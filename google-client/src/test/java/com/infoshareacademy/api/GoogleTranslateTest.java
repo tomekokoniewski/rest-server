@@ -6,13 +6,18 @@ import static org.junit.Assert.assertThat;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class GoogleTranslateTest {
 
     public static final String API_KEY = "AIzaSyBFhP9kVN4d_hYuD2tz6yzri6cHYH6tAe0";
 
     private GoogleTranslate googleTranslate;
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void setUp() {
@@ -27,6 +32,19 @@ public class GoogleTranslateTest {
 
         final String result = googleTranslate.translate(input, source, target);
         assertThat(result, is("Cześć jak się masz?"));
+    }
+
+    @Test
+    public void shouldHandleFailure() {
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("The request is missing a valid API key.");
+
+        googleTranslate = new GoogleTranslate("123123123");
+
+        final String input = "Hi, how are you?";
+        final String source = "en";
+        final String target = "pl";
+        googleTranslate.translate(input, source, target);
     }
 
     @Test
