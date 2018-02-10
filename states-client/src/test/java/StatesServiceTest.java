@@ -3,6 +3,7 @@ import static org.hamcrest.core.Is.is;
 
 
 import java.util.List;
+import model.StateDetails;
 import org.junit.Test;
 
 public class StatesServiceTest {
@@ -11,7 +12,7 @@ public class StatesServiceTest {
     public void shouldGetAllStates() {
         StatesService service = new StatesService();
 
-        List states = service.getAllStates();
+        List<StateDetails> states = service.getAllStates();
         assertThat(states.size(), is(55));
     }
 }
