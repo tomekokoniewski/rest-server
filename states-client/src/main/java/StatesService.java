@@ -11,7 +11,11 @@ public class StatesService {
     public static final String ADDRESS = "http://services.groupkt.com/state/get/USA/all";
 
     public StateDetails getState(String code) {
-        return null;
+        return getAllStates().stream()
+            .filter(s -> s.getAbbr().equalsIgnoreCase(code))
+            .findAny()
+            .orElseThrow(
+                () -> new IllegalArgumentException("Unknown state - " + code + "."));
     }
 
     public List<StateDetails> getAllStates() {
