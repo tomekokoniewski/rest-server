@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 
 public class GoogleTranslate {
@@ -31,17 +33,15 @@ public class GoogleTranslate {
 
         String address = "https://translation.googleapis.com/language/translate/v2";
 
-        Map<String, String> params = new HashMap<>();
-        params.put("source", source);
-        params.put("target", target);
-        params.put("key", API_KEY);
-        params.put("q", input);
-
-        String url = generateUrl(address, params);
+        Form form = new Form();
+        form.param("source", source);
+        form.param("target", target);
+        form.param("q", input);
+        form.param("key", API_KEY);
 
         Client client = ClientBuilder.newClient();
-        WebTarget webTarget = client.target(url);
-        Response response = webTarget.request().get();
+        WebTarget webTarget = client.target(address);
+        Response response = webTarget.request().post(Entity.form(form));
 
         String result = response.readEntity(String.class);
         response.close();
