@@ -3,10 +3,7 @@ package com.infoshareacademy.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -36,4 +33,12 @@ public class UserService {
         return Response.ok("Saying hello to " + name + "!").build();
     }
 
+    @GET
+    @Path("/agent")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getUserAgent(@HeaderParam("user-agent") String userAgent) {
+        LOG.info("User agent: {}", userAgent);
+
+        return Response.ok(userAgent).build();
+    }
 }
