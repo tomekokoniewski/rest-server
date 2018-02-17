@@ -76,11 +76,16 @@ public class UserService {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-    /*
-    <form method="POST">
-      <input type="text" name="username"/><br/>
-      <input type="password" name="password"/><br/>
-      <input type="Submit"/>
-    </form>
-     */
+    @GET
+    @Path("/login")
+    @Produces(MediaType.TEXT_HTML)
+    public Response getLoginForm() {
+        String html = "<form action=\"authenticate\" method=\"POST\">\n" +
+                "      <input type=\"text\" name=\"username\"/><br/>\n" +
+                "      <input type=\"password\" name=\"password\"/><br/>\n" +
+                "      <input type=\"Submit\"/>\n" +
+                "    </form>";
+
+        return Response.ok(html).build();
+    }
 }
