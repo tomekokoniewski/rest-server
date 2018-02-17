@@ -1,5 +1,6 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.model.Credentials;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.model.UserStore;
 import org.slf4j.Logger;
@@ -99,5 +100,14 @@ public class UserService {
         }
 
         return Response.status(Response.Status.FORBIDDEN).build();
+    }
+
+    @POST
+    @Path("/authenticate")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response authenticate(Credentials credentials) {
+        LOG.info("Credentials: {}", credentials);
+
+        return authenticate(credentials.getUser(), credentials.getPassword());
     }
 }
