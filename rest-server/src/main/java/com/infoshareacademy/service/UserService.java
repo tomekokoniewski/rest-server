@@ -75,4 +75,12 @@ public class UserService {
         //return Response.status(404).build();
         return Response.status(Response.Status.NOT_FOUND).build();
     }
+
+    /*
+    <form method="POST">
+      <input type="text" name="username"/><br/>
+      <input type="password" name="password"/><br/>
+      <input type="Submit"/>
+    </form>
+     */
 }
