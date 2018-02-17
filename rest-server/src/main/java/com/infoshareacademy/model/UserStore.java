@@ -33,6 +33,15 @@ public class UserStore {
         base.put(user2.getId(), user2);
     }
 
+    public int getNewId() {
+        //return base.keySet().stream()
+                //.reduce(0, (acc, n) -> n > acc ? n : acc) + 1;
+
+        return  base.keySet().stream()
+                .mapToInt(i -> i)
+                .max().orElse(0) + 1;
+    }
+
     public void add(User user) {
         LOG.info("Adding to store: " + user.toString());
         base.put(user.getId(), user);

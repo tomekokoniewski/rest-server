@@ -110,4 +110,21 @@ public class UserService {
 
         return authenticate(credentials.getUser(), credentials.getPassword());
     }
+
+    @POST
+    @Path("/user")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addUser(User user) {
+
+        int newId = userStore.getNewId();
+        LOG.info("New ID: {}", newId);
+
+        userStore.add(new User(user.getName(),
+                user.getSurname(),
+                newId,
+                user.getCredentials()));
+
+        return getUsers();
+    }
 }
