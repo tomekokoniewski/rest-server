@@ -127,4 +127,18 @@ public class UserService {
 
         return getUsers();
     }
+
+    @PUT
+    @Path("/user")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateUser(User user) {
+
+        if (userStore.getBase().containsKey(user.getId())) {
+            userStore.getBase().put(user.getId(), user);
+            return Response.ok(user).build();
+        }
+
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
 }
