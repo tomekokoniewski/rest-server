@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.Collection;
+import java.util.Optional;
 
 @Path("/")
 public class UserService {
@@ -60,5 +61,18 @@ public class UserService {
         }
 
         return Response.ok(users).build();
+    }
+
+    @GET
+    @Path("/user")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUser(@QueryParam("id") Integer id) {
+        Optional<User> user = userStore.findById(id);
+        if (user.isPresent()) {
+            return Response.ok(user.get()).build();
+        }
+
+        //return Response.status(404).build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }

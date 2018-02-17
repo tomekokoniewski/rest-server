@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.Singleton;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Singleton
 public class UserStore {
@@ -35,5 +36,9 @@ public class UserStore {
     public void add(User user) {
         LOG.info("Adding to store: " + user.toString());
         base.put(user.getId(), user);
+    }
+
+    public Optional<User> findById(Integer id) {
+        return Optional.ofNullable(base.get(id));
     }
 }
