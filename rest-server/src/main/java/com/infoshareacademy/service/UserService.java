@@ -1,13 +1,17 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.model.User;
+import com.infoshareacademy.model.UserStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.Collection;
 
 @Path("/")
 public class UserService {
@@ -16,6 +20,9 @@ public class UserService {
 
     @Context
     private UriInfo uriInfo;
+
+    @Inject
+    private UserStore userStore;
 
     public UserService() {
     }
@@ -40,5 +47,18 @@ public class UserService {
         LOG.info("User agent: {}", userAgent);
 
         return Response.ok(userAgent).build();
+    }
+
+    @GET
+    @Path("/users")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUsers() {
+
+        Collection<User> users = userStore.getBase().values();
+        if (users.isEmpty()) {
+            return Response.noContent().build();
+        }
+
+        return Response.ok(users).build();
     }
 }
