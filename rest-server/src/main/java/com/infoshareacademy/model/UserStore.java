@@ -41,4 +41,11 @@ public class UserStore {
     public Optional<User> findById(Integer id) {
         return Optional.ofNullable(base.get(id));
     }
+
+    public boolean authenticate(String username, String password) {
+        return base.values().stream()
+                .map(User::getCredentials)
+                .anyMatch(c -> c.getUser().equals(username)
+                    && c.getPassword().equals(password));
+    }
 }

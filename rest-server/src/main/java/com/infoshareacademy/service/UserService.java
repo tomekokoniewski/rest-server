@@ -88,4 +88,16 @@ public class UserService {
 
         return Response.ok(html).build();
     }
+
+    @POST
+    @Path("/authenticate")
+    public Response authenticate(@FormParam("username") String username,
+                                 @FormParam("password") String password) {
+
+        if (userStore.authenticate(username, password)) {
+            return Response.ok().build();
+        }
+
+        return Response.status(Response.Status.FORBIDDEN).build();
+    }
 }
